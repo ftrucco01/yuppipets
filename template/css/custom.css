@@ -1,0 +1,102 @@
+.my-btn {
+    background-size: contain;
+    background-repeat: no-repeat;
+
+    border: 0;
+    position: relative;
+    transform: scale(0.6);
+    margin: 4px -38px;
+  }
+
+  .my-btn::before,
+  .my-btn::after {
+    box-sizing: inherit;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+
+.spin {
+  height: 200px;
+  width: 200px;
+}
+
+.spin::before,
+.spin::after {
+  top: 0;
+  left: 0;
+}
+
+.spin::before {
+  border: 2px solid transparent;
+}
+
+.spin:not(.disabled-hover):hover::before {
+  border-top-color: #144C96;
+  border-right-color: #144C96;
+  border-bottom-color: #144C96;
+  transition: border-top-color 0.15s linear, border-right-color 0.15s linear 0.10s, border-bottom-color 0.15s linear 0.20s;
+}
+
+.spin::after {
+  border: 0 solid transparent;
+}
+
+.spin:not(.disabled-hover):hover::after {
+  border-top: 2px solid #144C96;
+  border-left-width: 2px;
+  border-right-width: 2px;
+  transform: rotate(270deg);
+  transition: transform 0.4s linear 0s, border-left-width 0s linear 0.35s, -webkit-transform 0.4s linear 0s;
+}
+
+.spin.selected {
+  border: 2px solid #144C96;
+}
+
+.circle {
+  border-radius: 100%;
+  box-shadow: none;
+}
+
+.circle::before,
+.circle::after {
+  border-radius: 100%;
+}
+
+.checkmark {
+  position: absolute;
+  top: 15px;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  background-image: url("../img/check.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  display: none;
+}
+
+.checked {
+  display: block;
+}
+
+.genderCheckText2{
+    text-align: center;
+    font-size: 14px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    color: #2E2E2E;
+
+
+    position: absolute;
+    width: 57px;
+    height: 22px;
+    left: 38px;
+    top: 167px;
+  }
+
+  .genderCheckText2:hover{
+    color: #144C96;
+  }

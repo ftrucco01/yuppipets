@@ -1,0 +1,28 @@
+<html>
+
+<p id="users"></p>
+<body>
+
+<script>
+let users = 4578; // Valor inicial de usuarios
+const usersElement = document.getElementById("users");
+
+// Función que actualiza el valor de usuarios
+function updateUsers() {
+  users += Math.floor(Math.random() * (25 - 10 + 1) + 10); // Incrementa el valor aleatorio entre 10 y 25
+  usersElement.innerText = `${users} usuarios registrados`; // Actualiza el valor mostrado en el HTML
+}
+
+// Actualizamos el valor de usuarios cada segundo
+setInterval(updateUsers, 3000);
+
+// Grabamos el valor de usuarios en la sesión del navegador
+if (typeof(Storage) !== "undefined") {
+  sessionStorage.setItem("users", users);
+} else {
+  console.log("El navegador no soporta el almacenamiento de sesión");
+}
+</script>
+</body>
+
+</html>
