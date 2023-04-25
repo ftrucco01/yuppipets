@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>jQuery Steps Example</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-steps/1.1.0/jquery.steps.min.css">
+  </head>
+  <body>
+    <form id="myForm">
+      <h3>Step 1</h3>
+      <fieldset>
+        <legend>Step 1</legend>
+        <label for="field1">Field 1:</label>
+        <input type="text" id="field1" name="field1" required>
+        <label for="field2">Field 2:</label>
+        <input type="text" id="field2" name="field2" required>
+      </fieldset>
+      <h3>Step 2</h3>
+      <fieldset>
+        <legend>Step 2</legend>
+        <label for="field3">Field 3:</label>
+        <input type="text" id="field3" name="field3" required>
+        <label for="field4">Field 4:</label>
+        <input type="text" id="field4" name="field4" required>
+      </fieldset>
+      <h3>Step 3</h3>
+      <fieldset>
+        <legend>Step 3</legend>
+        <label for="field5">Field 5:</label>
+        <input type="text" id="field5" name="field5" required>
+        <label for="field6">Field 6:</label>
+        <input type="text" id="field6" name="field6" required>
+      </fieldset>
+    </form>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-steps/1.1.0/jquery.steps.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        $("#myForm").steps({
+          headerTag: "h3",
+          bodyTag: "fieldset",
+          transitionEffect: "slideLeft",
+          autoFocus: true,
+          labels: {
+            previous: "Back",
+            next: "Next",
+            finish: "Submit",
+          },
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -30,36 +30,20 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@700&amp;family=Poppins:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" media="all" href="css/app.min.css">
+    <script src="js/lib/jquery.min.js"></script>
+    <script src="js/wizard.js"></script>
+    <script src="js/sms.js"></script>
 
-    <script>
-      var viewportmeta = document.querySelector('meta[name="viewport"]');
-      if (viewportmeta) {
-        if (screen.width < 375) {
-          var newScale = screen.width / 375;
-          viewportmeta.content = 'width=375, minimum-scale=' + newScale + ', maximum-scale=1.0, user-scalable=no, initial-scale=' + newScale + '';
-        } else {
-          viewportmeta.content = 'width=device-width, maximum-scale=1.0, initial-scale=1.0';
-        }
-      }
-    </script>
   </head>
   <body>
-    <script>
-      console.log(localStorage.getItem('darkMode'));
-      if (localStorage.getItem('darkMode') === "on") {
-        document.body.classList.add("dark");
-        document.addEventListener("DOMContentLoaded", function() {
-          document.querySelector('.js-theme input').checked = true;
-        });
-      }
-    </script>
     <!-- outer-->
     <div class="outer">
       <!-- header-->
       <!-- container-->
       <div class="sidenavRegister"></div>
 
-      <div class="outer__inner">
+      <!-- steps phone start -->
+      <div class="outer__inner" id="userStep1" style="display: none;">
         <div class="login">
           <div class="login__col"></div>
           <div class="login__col">
@@ -101,7 +85,960 @@
                       </span>
 
                     </label>
-                    <a class="button entry__button" href="send_mobile_code_step_2.html">Continuar</a>
+                    <a class="button entry__button" href="#">Continuar</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="outer__inner" id="userStep2" style="display: none;">
+        <div class="login">
+          <div class="login__col"></div>
+          <div class="login__col">
+            <div class="login__head" style="top: 6%;right: 16%;left: 28%;text-align:left;">
+              <button class="bidding__back js-bidding-back" onclick="window.location.href = 'entry_mobile_step_1.html';">
+                <svg class="icon icon-arrow-prev">
+                  <use xlink:href="#icon-arrow-prev"></use>
+                </svg>Regresar
+              </button>
+            </div>
+            <div class="login__wrap">
+              <div class="entry">
+                <div class="entry__top">
+                  <h3 class="entry__title h4">Ahora debemos validar que eres tú.</h3>
+                  <div class="register_user_info">
+                    Por tu seguridad es importante que verifiquemos que el numero de telefono que ingresaste te pertenece.
+                  </div>
+                </div>
+                <div class="entry__form">
+                  <div class="entry__tabs js-tabs">
+                    <label class="checkbox registration">
+                      <input class="checkbox__input" type="checkbox" checked><span class="checkbox__inner">
+                      <span class="checkbox__tick"></span>
+                      <span class="checkbox__text">
+                        Enviarme el codigo por mensaje de texto (SMS) al <b>81 9741 004</b>
+                      </span>
+
+                    </label>
+                    <a class="button entry__button" href="#">Continuar</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="outer__inner" id="userStep3">
+        <div class="login">
+          <div class="login__col"></div>
+          <div class="login__col">
+            <div class="login__head" style="top: 6%;right: 16%;left: 28%;text-align:left;">
+              <button class="bidding__back js-bidding-back" onclick="window.location.href = 'send_mobile_code_step_2.html';">
+                <svg class="icon icon-arrow-prev">
+                  <use xlink:href="#icon-arrow-prev"></use>
+                </svg>Regresar
+              </button>
+            </div>
+            
+            <div class="login__wrap">
+              <div class="entry">
+                <div class="login__verification" style="display: block;">
+                  <h3 class="login__title h4" style="text-align: left;">Confirma tu número de teléfono celular.</h3>
+                  <div class="login__text" style="text-align: left;">
+                    Ingresa el código que te enviamos por mensaje de texto al siguiente número: <b>+52 81 9741 0049</b>.
+                  </div>
+
+                  <div class="login__text" style="text-align: left;">
+                    El código caduca dentro de <b id="countdown">05:00</b>
+                  </div>
+                  <div class="login__text" style="text-align: left;">¿No recibiste el código? <a class="checkbox__link" href="#">Vuelver a enviar</a>
+                  </div>
+                  <div class="login__numbers">
+                    <div class="registration__number">
+                      <input type="tel" id="number1" maxlength="1" pattern="\d">
+                    </div>
+                    <div class="registration__number">
+                      <input type="tel" id="number2" maxlength="1">
+                    </div>
+                    <div class="registration__number">
+                      <input type="tel" id="number3" maxlength="1" onkeydown="if (event.keyCode === 13) { window.location.href = 'congratulations_step_4.html'; }">
+                    </div>
+                    <div class="registration__number">
+                      <input type="tel" id="number4" maxlength="1" onkeydown="if (event.keyCode === 13) { window.location.href = 'congratulations_step_4.html'; }">
+                    </div>
+                  </div>
+                  <a class="button entry__button" href="#">Continuar</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- steps phone end -->
+
+      <!--setp congratulations-->
+      <div class="outer__inner" id="userStep4" style="display: none;">
+        <div class="login">
+          <div class="login__col"></div>
+          <div class="login__col">
+            <div class="login__wrap">
+              <div class="entry">
+                <div class="entry__top">
+                  <h3 class="entry__title h4">¡Felicidades!, ya tienes una cuenta Yuppipets.</h3>
+                  <div class="register_user_info">
+                    Adorable humano, ya eres parte de nuestro Club. Y para una mejor experiencia, debes completar la información siguiente para ser acreedor a los beneficios que <b>Yuppipets</b> tiene para ti y tu hermosa mascota.
+                  </div>
+                  <div class="register_user_info">
+                    Siéntete seguro, ya que toda tu información será resguardada y manejada con total confidencialidad.
+                  </div>
+                </div>
+                <div class="entry__form">
+                  <a class="button entry__button" href="#">DE ACUERDO</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- setp congratulations end -->
+
+
+      <!-- personal info -->
+      <div class="outer__inner" id="userStep5" style="display: none;">
+        <div class="login">
+          <div class="login__col"></div>
+          <div class="login__col">
+            <div class="login__wrap">
+              <div class="entry">
+                <div class="entry__top">
+                  <h3 class="entry__title h4">Información personal para tu perfil</h3>
+                  <div class="register_user_info">
+                    Por favor, completa los datos que te solicitamos para terminar de configurar tu cuenta <b>Yuppipets</b>.
+                  </div>
+                </div>
+                <div class="entry__form">
+                  <div class="entry__tabs js-tabs">
+
+                    <div class="field field_icon">
+                      <div class="field__label">FECHA DE NACIMIENTO</div>
+                      <div class="field__wrap">
+                        <input class="field__input" type="text" name="date" placeholder="DD/MM/YYYY" required="">
+                        <div class="field__icon">
+                          <svg class="icon icon-calendar">
+                            <use xlink:href="#icon-calendar"></use>
+                          </svg>
+                        </div> 
+                      </div>
+                    </div>
+
+                    <a class="button entry__button" href="#">Continuar</a>
+                    <!--
+                    <a class="button entry__button js-popup-open" href="#popup-transfer" data-effect="mfp-zoom-in">Continuar</a>
+                  -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="outer__inner" id="userStep6" style="display: none;">
+        <div class="login">
+          <div class="login__col">
+          </div>
+          <div class="login__col">
+            <div class="login__head" style="top: 6%;right: 16%;left: 28%;text-align:left;">
+              <button class="bidding__back js-bidding-back" onclick="window.location.href = 'personal_info_step_5.html';">
+                <svg class="icon icon-arrow-prev">
+                  <use xlink:href="#icon-arrow-prev"></use>
+                </svg>Regresar
+              </button>
+            </div>
+            <div class="login__wrap">
+              <div class="entry">
+                <div class="entry__top">
+                  <h3 class="entry__title h4">Información personal para tu perfil</h3>
+                  <div class="register_user_info">
+                    Por favor, completa los datos que te solicitamos para terminar de configurar tu cuenta <b>Yuppipets</b>.
+                  </div>
+                </div>
+                <div class="entry__form">
+                    <div class="entry__tabs js-tabs">
+
+                        <div class="field field_icon">
+                          <div class="field__label">¿CUAL ES TU GÉNERO?</div>
+                          <div class="container-wrapper">
+
+                            <label class="checkbox">
+                              <button style="background-image: url('./img/male.png');" class="spin circle my-btn">
+                                <span class="checkmark"></span>
+                              </button>
+                              
+                              <p class="genderCheckText2">Mujer</p>
+                            </label>
+
+                            <label class="checkbox">
+                              <button style="background-image: url('./img/male.png');" class="spin circle my-btn">
+                                <span class="checkmark"></span>
+                              </button>
+
+                              <p class="genderCheckText2">Hombre</p>
+                            </label>
+
+                            <label class="checkbox">
+                              <button style="background-image: url('./img/male.png');" class="spin circle my-btn">
+                                <span class="checkmark"></span>
+                              </button>
+                              <p class="genderCheckText2">Binario</p>
+                            </label>
+
+                          </div>
+                        </div>
+                        <a id="continuarBtn" class="button entry__button" href="#">Continuar</a>
+                        <!--<a id="continuarBtn" style="display:none;" class="button entry__button" href="personal_info_full_name_step_7.html">Continuar</a>-->
+                      </div>
+                  </div>
+                </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      
+      <div class="outer__inner" id="userStep7" style="display: none;">
+            <div class="login">
+              <div class="login__col">
+              </div>
+              <div class="login__col">
+                <div class="login__head" style="top: 6%;right: 16%;left: 28%;text-align:left;">
+                  <button class="bidding__back js-bidding-back" onclick="window.location.href = 'personal_info_gender_step_6.html';">
+                    <svg class="icon icon-arrow-prev">
+                      <use xlink:href="#icon-arrow-prev"></use>
+                    </svg>Regresar
+                  </button>
+                </div>
+                <div class="login__wrap">
+                  <div class="entry">
+                    <div class="entry__top">
+                      <h3 class="entry__title h4">Información personal para tu perfil</h3>
+                      <div class="register_user_info">
+                        Por favor, completa los datos que te solicitamos para terminar de configurar tu cuenta <b>Yuppipets</b>.
+                      </div>
+                    </div>
+                    <div class="entry__form">
+                      <div class="entry__tabs js-tabs">
+    
+                        <div class="field field_icon">
+                          <div class="field__label">NOMBRE COMPLETO</div>
+                          <div class="security__form">
+                            <div class="security__row">
+                              <div class="field field_view">
+                                <div class="field__wrap">
+                                  <input class="field__input" type="text" name="text" placeholder="Nombre">
+                                </div>
+                              </div>
+                              <div class="field">
+                                <div class="field__wrap">
+                                  <input class="field__input" type="text" name="code" placeholder="Apellido">
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                        <a id="continuarBtn" class="button entry__button" href="#">Continuar</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      <div class="outer__inner" id="userStep8" style="display: none;">
+        <div class="login">
+          <div class="login__col"></div>
+          <div class="login__col">
+            <div class="login__head" style="top: 6%;right: 16%;left: 28%;text-align:left;">
+              <button class="bidding__back js-bidding-back" onclick="window.location.href = 'personal_info_full_name_step_7.html';">
+                <svg class="icon icon-arrow-prev">
+                  <use xlink:href="#icon-arrow-prev"></use>
+                </svg>Regresar
+              </button>
+            </div>
+            <div class="login__wrap">
+              <div class="entry">
+                <div class="entry__top">
+                  <h3 class="entry__title h4">Información personal para tu perfil</h3>
+                  <div class="register_user_info">
+                    Por favor, completa los datos que te solicitamos para terminar de configurar tu cuenta <b>Yuppipets</b>.
+                  </div>
+                </div>
+                <div class="entry__form">
+                  <div class="entry__tabs js-tabs">
+                    <div class="field field_icon">
+                      <div class="field__label">USUARIO</div>
+                      <div class="field__wrap">
+                        <input id="username-input" class="field__input" type="text" name="email" placeholder="Nombre de usuario">
+                        <img id="username-check" src="./img/user_check.png" class="check-icon" alt="check" style="display: none;">
+                      </div>
+                    </div>
+                    <a id="continuarBtn" class="button entry__button" href="#">Continuar</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="outer__inner" id="userStep9" style="display: none;">
+        <div class="login">
+          <div class="login__col"></div>
+          <div class="login__col">
+            <div class="login__head" style="top: 6%;right: 16%;left: 28%;text-align:left;">
+              <button class="bidding__back js-bidding-back" onclick="window.location.href = 'personal_info_user_name_step_8.html';">
+                <svg class="icon icon-arrow-prev">
+                  <use xlink:href="#icon-arrow-prev"></use>
+                </svg>Regresar
+              </button>
+            </div>
+            <div class="login__wrap">
+              <div class="entry">
+                <div class="entry__top">
+                  <h3 class="entry__title h4">Información personal para tu perfil</h3>
+                  <div class="register_user_info">
+                    Por favor, completa los datos que te solicitamos para terminar de configurar tu cuenta <b>Yuppipets</b>.
+                  </div>
+                </div>
+                <div class="entry__form">
+                  <div class="entry__tabs js-tabs">
+                    <div class="field field_icon">
+                      <div class="field__label">CORREO ELECTRÓNICO</div>
+                      <div class="field__wrap">
+                        <input id="username-input" class="field__input" type="text" name="email" placeholder="Correo electrónico válido">
+                        <img id="username-check" src="./img/user_check.png" class="check-icon" alt="check" style="display: none;">
+                      </div>
+                    </div>
+                    <a id="continuarBtn" class="button entry__button" href="#">Continuar</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="outer__inner" id="userStep10" style="display: none;">
+        <div class="login">
+          <div class="login__col"></div>
+          <div class="login__col">
+            <div class="login__head" style="top: 6%;right: 16%;left: 28%;text-align:left;">
+              <button class="bidding__back js-bidding-back" onclick="window.location.href = 'personal_info_full_name_step_7.html';">
+                <svg class="icon icon-arrow-prev">
+                  <use xlink:href="#icon-arrow-prev"></use>
+                </svg>Regresar
+              </button>
+            </div>
+            <div class="login__wrap">
+              <div class="entry">
+                <div class="entry__top">
+                  <h3 class="entry__title h4">Información personal para tu perfil</h3>
+                  <div class="register_user_info">
+                    Por favor, completa los datos que te solicitamos para terminar de configurar tu cuenta <b>Yuppipets</b>.
+                  </div>
+                </div>
+                <div class="entry__form">
+                  <div class="entry__tabs js-tabs">
+                    <div class="field field_icon">
+                      <div class="field field_view">
+                        <div class="field__label">CONTRASEÑA</div>
+                        <div class="field__wrap">
+                          <input id="username-input" class="field__input" type="password" name="password" placeholder="Contraseña">
+                          <img id="username-check" src="./img/user_check.png" class="check-icon" alt="check" style="display: none;">
+                          <button id="password" class="field__view" onclick="togglePasswordVisibility()">
+                            <svg class="icon icon-eye">
+                              <use xlink:href="#icon-eye"></use>
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <a id="continuarBtn" class="button entry__button" href="#">Continuar</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="outer__inner" id="userStep11" style="display: none;">
+        <div class="login">
+          <div class="login__col"></div>
+          <div class="login__col">
+            <div class="login__head" style="top: 6%;right: 16%;left: 28%;text-align:left;">
+              <button class="bidding__back js-bidding-back" onclick="window.location.href = 'personal_info_user_password_step_10.html';">
+                <svg class="icon icon-arrow-prev">
+                  <use xlink:href="#icon-arrow-prev"></use>
+                </svg>Regresar
+              </button>
+            </div>
+            <div class="login__wrap">
+              <div class="entry">
+                <div class="entry__top">
+                  <h3 class="entry__title h4">Información personal para tu perfil</h3>
+                  <div class="register_user_info">
+                    Por favor, completa los datos que te solicitamos para terminar de configurar tu cuenta <b>Yuppipets</b>.
+                  </div>
+                </div>
+                <div class="entry__form">
+                  <div class="entry__tabs js-tabs">
+                    <div class="field field_icon">
+                      <div class="field field_view">
+                        <div class="field__label">CONFIRMAR CONTRASEÑA</div>
+                        <div class="field__wrap">
+                          <input class="field__input" type="password" name="password" placeholder="Confirmar contraseña">
+                          <button class="field__view" onclick="togglePasswordVisibility()">
+                            <svg class="icon icon-eye">
+                              <use xlink:href="#icon-eye"></use>
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <a id="continuarBtn" class="button entry__button" href="#">Continuar</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="outer__inner" id="userStep12" style="display: none;">
+        <div class="login">
+          <div class="login__col"></div>
+          <div class="login__col">
+            <div class="login__head" style="top: 6%;right: 16%;left: 28%;text-align:left;">
+              <button class="bidding__back js-bidding-back" onclick="window.location.href = 'personal_info_user_password_confirm_step_11.html';">
+                <svg class="icon icon-arrow-prev">
+                  <use xlink:href="#icon-arrow-prev"></use>
+                </svg>Regresar
+              </button>
+            </div>
+            <div class="login__wrap">
+              <div class="entry">
+                <div class="entry__top">
+                  <h3 class="entry__title h4">Información personal para tu perfil</h3>
+                  <div class="register_user_info">
+                    Por favor, completa los datos que te solicitamos para terminar de configurar tu cuenta <b>Yuppipets</b>.
+                  </div>
+                </div>
+                <div class="entry__form">
+                  <div class="entry__tabs js-tabs">
+
+                    <div class="field field_icon">
+                      <div class="field__label">TU DIRECCIÓN</div>
+                      <div class="field__wrap" style="display: flex;justify-content: center;">
+                        <label class="checkbox" style="margin: 20px;">
+                          <input class="checkbox__input" onclick="botonUbicacionTiempoReal()" type="radio" name="gender">
+                          <span class="checkbox__inner genderCheck">
+                            <img style="border:none" class="imgCheck" src="./img/real_time_location.png" alt="Imagen 1">
+                            <p class="genderCheckText" style="font-weight: 500;">Usar mi ubicación <br/> en tiempo real</p>
+                          </span>
+                          <img class="checked" src="./img/check.png" alt="check" style="position: absolute; top: 7px; right: 8px; display: none;">
+                        </label>
+
+                        <label class="checkbox" style="margin: 20px;">
+                          <input class="checkbox__input" onclick="botonUbicacionManual()" type="radio" name="gender">
+                          <span class="checkbox__inner genderCheck">
+                            <img style="border:none" class="imgCheck" src="./img/custom_location.png" alt="Imagen 1">
+                            <p class="genderCheckText" style="font-weight: 500;">Quiero agregar <br/> mi dirección</p>
+                          </span>
+                          <img class="checked" src="./img/check.png" alt="check" style="position: absolute; top: 7px; right: -2px; display: none;">
+                        </label>
+                        
+                      </div>
+                      <div id="map" style="margin-bottom: 10px; border-radius: 10px; display: none;"></div>
+                      <div class="field__wrap">
+                        <input id="direccion" style="display: none;" class="field__input" type="text" name="email">
+                      </div>
+
+                    </div>
+                    <a id="continuarBtn" class="button entry__button" href="#">Continuar</a>
+                    <!--<a id="continuarBtn" style="display: none;" class="button entry__button" href="personal_info_user_congratulations_step_13.html">Continuar</a>-->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="outer__inner" id="userStep13" style="display: none;">
+        <div class="login">
+          <div class="login__col"></div>
+          <div class="login__col">
+            <div class="login__head" style="top: 6%;right: 16%;left: 28%;text-align:left;">
+              <button class="bidding__back js-bidding-back" onclick="window.location.href = 'personal_info_user_address_step_12.html';">
+                <svg class="icon icon-arrow-prev">
+                  <use xlink:href="#icon-arrow-prev"></use>
+                </svg>Regresar
+              </button>
+            </div>
+            <div class="login__wrap">
+              <div class="entry">
+                <div class="entry__top">
+                  <h3 class="entry__title h4">¡Excelente!, Ahora presentanos a tu familia de mascota(s)</h3>
+                  <div class="register_user_info" style="margin-bottom: -25px">
+                    Adorable humano, como requisito de nuestro club es necesario registres a tu(s) mascota(s) para que puedan participar en nuestros eventos, promociones y sorteos que <b>Yuppipets</b> realiza continuamente.
+                  </div>
+                </div>
+                <div class="entry__form">
+                  <div class="entry__tabs js-tabs">
+                    <a id="continuarBtn" class="button entry__button" href="#">COMENCEMOS</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="outer__inner" id="userStep14" style="display: none;">
+        <div class="login">
+          <div class="login__col"></div>
+          <div class="login__col">
+            <div class="login__head" style="top: 6%;right: 16%;left: 28%;text-align:left;">
+              <button class="bidding__back js-bidding-back" onclick="window.location.href = 'personal_info_user_congratulations_step_13.html';">
+                <svg class="icon icon-arrow-prev">
+                  <use xlink:href="#icon-arrow-prev"></use>
+                </svg>Regresar
+              </button>
+            </div>
+            <div class="login__wrap">
+              <div class="entry">
+                <div class="entry__top">
+                  <h3 class="entry__title h4">Cuentános, ¿Cuántas mascotas tienes?</h3>
+                  <div class="register_user_info">
+                    Por favor, completa los datos que te solicitamos de tu(s) mascota(s) para terminar de configurar tu cuenta <b>Yuppipets</b>.
+                  </div>
+                </div>
+                <div class="entry__form">
+                  <div class="entry__tabs js-tabs">
+                    <div class="field field_icon">
+                      <div class="field__label">NÚMERO DE MASCOTAS</div>
+                      <div class="field__wrap">
+                        <div class="field__input number-input" style="width: 53%;">
+                          <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" ></button>
+                          <input style="border: none;" class="field__input quantity" type="number" name="cantidad" min="1" max="10" step="1" value="1">
+                          <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+                          </div>
+                      </div>
+                    </div>
+                    <a id="continuarBtn" class="button entry__button" href="#">Continuar</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="outer__inner" id="userStep15" style="display: none;">
+        <div class="login">
+          <div class="login__col"></div>
+          <div class="login__col">
+            <div class="login__head" style="top: 6%;right: 16%;left: 28%;text-align:left;">
+              <button class="bidding__back js-bidding-back" onclick="window.location.href = 'personal_info_user_total_pets_step_14.html';">
+                <svg class="icon icon-arrow-prev">
+                  <use xlink:href="#icon-arrow-prev"></use>
+                </svg>Regresar
+              </button>
+            </div>
+            <div class="login__wrap">
+              <div class="entry">
+                <div class="entry__top">
+                  <h3 class="entry__title h4">Información de tu mascota</h3>
+                  <div class="register_user_info">
+                    Por favor, completa los datos que te solicitamos de tu(s) mascota(s) para terminar de configurar tu cuenta <b>Yuppipets</b>.
+                  </div>
+                </div>
+                <div class="entry__form">
+                  <div class="entry__tabs js-tabs">
+                    <div class="field field_icon">
+                      <div class="field__label">¿CUÁL ES SU ESPECIE?</div>
+                      <div class="field__wrap">
+                        <label class="checkbox">
+                          <input class="checkbox__input" onclick="onRadioClick()" type="radio" name="gender">
+                          <span class="checkbox__inner genderCheck">
+                            <img class="imgCheck" src="./img/dog.png" alt="Imagen 1">
+                            <p class="genderCheckText">Perro</p>
+                          </span>
+                          <img class="checked" src="./img/check.png" alt="check" style="position: absolute; top: -2px; right: 5px; display: none;">
+                        </label>
+
+                        <label class="checkbox">
+                          <input class="checkbox__input" onclick="onRadioClick()" type="radio" name="gender">
+                          <span class="checkbox__inner genderCheck">
+                            <img class="imgCheck" src="./img/cat.png" alt="Imagen 1">
+                            <p class="genderCheckText">Gato</p>
+                          </span>
+                          <img class="checked" src="./img/check.png" alt="check" style="position: absolute; top: -2px; right: 5px; display: none;">
+                        </label>
+                      </div>
+                    </div>
+                    <a id="continuarBtn" class="button entry__button" href="#">Continuar</a>
+                    <!--<a id="continuarBtn" style="display:none" class="button entry__button" href="#">Continuar</a>-->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="outer__inner" id="userStep16" style="display: none;">
+        <div class="login">
+          <div class="login__col"></div>
+          <div class="login__col">
+            <div class="login__head" style="top: 6%;right: 16%;left: 28%;text-align:left;">
+              <button class="bidding__back js-bidding-back" onclick="window.location.href = 'personal_info_user_pets_specie_step_15.html';">
+                <svg class="icon icon-arrow-prev">
+                  <use xlink:href="#icon-arrow-prev"></use>
+                </svg>Regresar
+              </button>
+            </div>
+            <div class="login__wrap">
+              <div class="entry">
+                <div class="entry__top">
+                  <h3 class="entry__title h4">Información de tu mascota</h3>
+                  <div class="register_user_info">
+                    Por favor, completa los datos que te solicitamos de tu(s) mascota(s) para terminar de configurar tu cuenta <b>Yuppipets</b>.
+                  </div>
+                </div>
+                <div class="entry__form">
+                  <div class="entry__tabs js-tabs">
+                    <div class="field field_icon">
+                      <div class="field__label">¿CUÁL ES SU GÉNERO?</div>
+                      <div class="field__wrap">
+                        <label class="checkbox">
+                          <input class="checkbox__input" onclick="onRadioClick()" type="radio" name="gender">
+                          <span class="checkbox__inner genderCheck">
+                            <img class="imgCheck" src="./img/famale_pet.png" alt="Imagen 1">
+                            <p class="genderCheckText">Hembra</p>
+                          </span>
+                          <img class="checked" src="./img/check.png" alt="check" style="position: absolute; top: -2px; right: 5px; display: none;">
+                        </label>
+
+                        <label class="checkbox">
+                          <input class="checkbox__input" onclick="onRadioClick()" type="radio" name="gender">
+                          <span class="checkbox__inner genderCheck">
+                            <img class="imgCheck" src="./img/male_pet.png" alt="Imagen 1">
+                            <p class="genderCheckText">Macho</p>
+                          </span>
+                          <img class="checked" src="./img/check.png" alt="check" style="position: absolute; top: -2px; right: 5px; display: none;">
+                        </label>
+                      </div>
+                    </div>
+                    <a id="continuarBtn" class="button entry__button" href="#">Continuar</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="outer__inner" id="userStep17" style="display: none;">
+        <div class="login">
+          <div class="login__col"></div>
+          <div class="login__col">
+            <div class="login__head" style="top: 6%;right: 16%;left: 28%;text-align:left;">
+              <button class="bidding__back js-bidding-back" onclick="window.location.href = 'personal_info_user_pets_gender_step_16.html';">
+                <svg class="icon icon-arrow-prev">
+                  <use xlink:href="#icon-arrow-prev"></use>
+                </svg>Regresar
+              </button>
+            </div>
+            <div class="login__wrap">
+              <div class="entry">
+                <div class="entry__top">
+                  <h3 class="entry__title h4">Información de tu mascota</h3>
+                  <div class="register_user_info">
+                    Por favor, completa los datos que te solicitamos de tu(s) mascota(s) para terminar de configurar tu cuenta <b>Yuppipets</b>.
+                  </div>
+                </div>
+                <div class="entry__form">
+                  <div class="entry__tabs js-tabs">
+                    <div class="field field_icon">
+                      <div class="field__label">EDAD DE TU MASCOTA</div>
+                      <div class="keys__form">
+                        <div class="keys__row">
+                          <div class="field field_view">
+                            <div class="field__wrap">
+                              <div class="field__input number-input" style="width: 100%;">
+                                <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" ></button>
+                                <input style="border: none;" class="field__input quantity" type="number" name="cantidad" min="1" max="20" step="1" value="1">
+                                <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="field">
+                            <div class="field__wrap">
+                              <select class="field__input" name="age">
+                                <option value="mounths">Mes(es)</option>
+                                <option value="years">Año(s)</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <a id="continuarBtn" class="button entry__button" href="#">Continuar</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="outer__inner" id="userStep18" style="display: none;">
+        <div class="login">
+          <div class="login__col"></div>
+          <div class="login__col">
+            <div class="login__head" style="top: 6%;right: 16%;left: 28%;text-align:left;">
+              <button class="bidding__back js-bidding-back" onclick="window.location.href = 'personal_info_user_pets_age_step_17.html';">
+                <svg class="icon icon-arrow-prev">
+                  <use xlink:href="#icon-arrow-prev"></use>
+                </svg>Regresar
+              </button>
+            </div>
+            <div class="login__wrap">
+              <div class="entry">
+                <div class="entry__top">
+                  <h3 class="entry__title h4">Información de tu mascota</h3>
+                  <div class="register_user_info">
+                    Por favor, completa los datos que te solicitamos para terminar de configurar tu cuenta <b>Yuppipets</b>.
+                  </div>
+                </div>
+                <div class="entry__form">
+                  <div class="entry__tabs js-tabs">
+                    <div class="field field_icon">
+                      <div class="field__label">NOMBRE DE TU MASCOTA</div>
+                      <div class="field__wrap">
+                        <input class="field__input" type="text" name="email">
+                      </div>
+                    </div>
+                    <a id="continuarBtn" class="button entry__button" href="#">Continuar</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="outer__inner" id="userStep19" style="display: none;">
+        <div class="login">
+          <div class="login__col"></div>
+          <div class="login__col">
+            <div class="login__head" style="top: 6%;right: 16%;left: 28%;text-align:left;">
+              <button class="bidding__back js-bidding-back" onclick="window.location.href = 'personal_info_pet_name_step_18.html';">
+                <svg class="icon icon-arrow-prev">
+                  <use xlink:href="#icon-arrow-prev"></use>
+                </svg>Regresar
+              </button>
+            </div>
+            <div class="login__wrap">
+              <div class="entry">
+                <div class="entry__top">
+                  <h3 class="entry__title h4">Información de tu mascota</h3>
+                  <div class="register_user_info">
+                    Por favor, completa los datos que te solicitamos para terminar de configurar tu cuenta <b>Yuppipets</b>.
+                  </div>
+                </div>
+                <div class="entry__form">
+                  <div class="entry__tabs js-tabs">
+
+                    <div class="field field_icon">
+                      <div class="field__label">FECHA DE NACIMIENTO (OPCIONAL)</div>
+                      <div class="field__wrap">
+                        <input class="field__input" type="text" name="date" placeholder="DD/MM/YYYY" required="">
+                        <div class="field__icon">
+                          <svg class="icon icon-calendar">
+                            <use xlink:href="#icon-calendar"></use>
+                          </svg>
+                        </div> 
+                      </div>
+                    </div>
+
+                    <a class="button entry__button" href="#">Continuar</a>
+                    <!--<a class="button entry__button js-popup-open" href="#popup-transfer" data-effect="mfp-zoom-in">Continuar</a>-->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="outer__inner" id="userStep20" style="display: none;">
+        <div class="login">
+          <div class="login__col"></div>
+          <div class="login__col">
+            <div class="login__head" style="top: 6%;right: 16%;left: 28%;text-align:left;">
+              <button class="bidding__back js-bidding-back" onclick="window.location.href = 'personal_info_pet_birthdate_step_19.html';">
+                <svg class="icon icon-arrow-prev">
+                  <use xlink:href="#icon-arrow-prev"></use>
+                </svg>Regresar
+              </button>
+            </div>
+            <div class="login__wrap">
+              <div class="entry">
+                <div class="entry__top">
+                  <h3 class="entry__title h4">Información de tu mascota</h3>
+                  <div class="register_user_info">
+                    Por favor, completa los datos que te solicitamos para terminar de configurar tu cuenta <b>Yuppipets</b>.
+                  </div>
+                </div>
+                <div class="entry__form">
+                  <div class="entry__tabs js-tabs">
+
+                    <div class="field field_icon">
+                      <div class="field__label">FOTO DE TU MASCOTA</div>
+
+                      <div class="field__wrap">
+
+                        <label for="archivo" id="selector">
+                          <div id="avatar">
+                            <img src="./img/photo_icon.png" alt="Seleccionar archivo">
+                          </div>
+                        </label>
+                        <input type="file" id="archivo" name="archivo" onchange="onSelectFile()">
+                      </div>
+                    </div>
+
+                  </div>
+                  <a class="button entry__button" href="#">Continuar</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="outer__inner" id="userStep21" style="display: none;">
+        <div class="login">
+          <div class="login__col"></div>
+          <div class="login__col">
+            <div class="login__head" style="top: 6%;right: 16%;left: 28%;text-align:left;">
+              <button class="bidding__back js-bidding-back" onclick="window.location.href = 'personal_info_pet_picture_step_part_2_20.html';">
+                <svg class="icon icon-arrow-prev">
+                  <use xlink:href="#icon-arrow-prev"></use>
+                </svg>Regresar
+              </button>
+            </div>
+            <div class="login__wrap">
+              <div class="entry">
+                <div class="entry__top" style="border-bottom: 0px">
+                  <h3 class="entry__title h4">¡Felicidades!, tu perfil ha sido completado</h3>
+                  <div class="register_user_info" style="margin-bottom: -25px">
+                    Yuppipets te premia a ti y a tu mascota por haber creado una cuenta <b>Yuppipets</b>. A continuacuón podrás elegir un obsequio para tu mascota y te lo envíaremos al domicilio que nos indiques.
+                  </div>
+                </div>
+                <div class="entry__form">
+                  <div class="entry__tabs js-tabs">
+                    <a id="continuarBtn" class="button entry__button" href="#">ME ENCANTA LA IDEA</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="outer__inner" id="userStep22" style="display: none;">
+        <div class="login">
+          <div class="login__col"></div>
+          <div class="login__col">
+            <div class="login__head" style="top: 6%;right: 16%;left: 28%;text-align:left;">
+              <button class="bidding__back js-bidding-back" onclick="window.location.href = 'personal_info_user_congratulations_final_step_21.html';">
+                <svg class="icon icon-arrow-prev">
+                  <use xlink:href="#icon-arrow-prev"></use>
+                </svg>Regresar
+              </button>
+            </div>
+            <div class="login__wrap">
+              <div class="entry">
+                <div class="entry__top">
+                  <h3 class="entry__title h4">Elige el obsequio que más te guste</h3>
+                  <div class="register_user_info" >
+                     Por favor, selecciona un obsequio.  
+                  </div>
+                </div>
+                
+                <div class="entry__form">
+                  <div class="entry__tabs js-tabs">
+                    <div class="field field_icon">
+                      <div class="field__wrap">
+
+                        <label class="checkbox" style="position: relative;">
+                          <input class="checkbox__input" onclick="onRadioClick()" type="radio" name="gender" style="opacity: 0;">
+                          <span class="checkbox__inner genderCheck" style="position: relative;">
+                            <div class="imgContainer" style="position: relative;">
+                              <img class="imgCheck2" src="./img/gift_bed.png" alt="Imagen 1" style="border: none;">
+                            </div>
+                            <p class="genderCheckText2" style="position: relative;">Cama perro <br/>tamaño L</p>
+                          </span>
+                          <img class="checked" src="./img/check.png" alt="check" style="position: absolute; top: -5px; right: -5px;display: none;">
+                        </label>
+
+                        <label class="checkbox" style="position: relative;">
+                          <input class="checkbox__input" onclick="onRadioClick()" type="radio" name="gender" style="opacity: 0;">
+                          <span class="checkbox__inner genderCheck" style="position: relative;">
+                            <div class="imgContainer" style="position: relative;">
+                              <img class="imgCheck2" src="./img/crockets_dispensor.png" alt="Imagen 1" style="border: none;">
+                            </div>
+                            <p class="genderCheckText2">Dispensador de <br/>Croquetas</p>
+                          </span>
+                          <img class="checked" src="./img/check.png" alt="check" style="position: absolute; top: -5px; right: -5px;display: none;">
+                        </label>
+                      </div>
+
+                      <div class="field__wrap">
+                        <label class="checkbox" style="position: relative;">
+                          <input class="checkbox__input" onclick="onRadioClick()" type="radio" name="gender" style="opacity: 0;">
+                          <span class="checkbox__inner genderCheck" style="position: relative;">
+                            <div class="imgContainer" style="position: relative;">
+                              <img class="imgCheck2" src="./img/correa_paseo.png" alt="Imagen 1" style="border: none;">
+                            </div>
+                            <p class="genderCheckText2">Correa para <br />paseo</p>
+                          </span>
+                          <img class="checked" src="./img/check.png" alt="check" style="position: absolute; top: -5px; right: -5px;display: none;">
+                        </label>
+
+                        <label class="checkbox" style="position: relative;">
+                          <input class="checkbox__input" onclick="onRadioClick()" type="radio" name="gender" style="opacity: 0;">
+                          <span class="checkbox__inner genderCheck" style="position: relative;">
+                            <div class="imgContainer" style="position: relative;">
+                              <img class="imgCheck2" src="./img/topete_entrenador.png" alt="Imagen 1" style="border: none;">
+                            </div>
+                            <p class="genderCheckText2">Tapete <br />entrenador</p>
+                          </span>
+                          <img class="checked" src="./img/check.png" alt="check" style="position: absolute; top: -5px; right: -5px;display: none;">
+                        </label>
+                      </div>
+
+                    </div>
+                    <a id="continuarBtn" class="button entry__button" href="#">Continuar</a>
+                    <!--<a id="continuarBtn" style="display:none" class="button entry__button" href="send_mobile_code_step_2.html">Continuar</a>-->
                   </div>
                 </div>
               </div>
@@ -112,7 +1049,6 @@
       <!-- footer-->
     </div>
     <!-- scripts-->
-    <script src="js/lib/jquery.min.js"></script>
     <script src="js/lib/slick.min.js"></script>
     <script src="js/lib/highcharts.js"></script>
     <script src="js/lib/jquery.nice-select.min.js"></script>
